@@ -1,0 +1,176 @@
+
+/* Cài đặt chung */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: #f1f5f9;
+    color: #1e293b;
+}
+
+/* Taskbar */
+.taskbar {
+    background: #172554;
+    color: white;
+    padding: 18px 7%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.logo {
+    font-size: 25px;
+    font-weight: bold;
+}
+
+.menu {
+    display: flex;
+    align-items: center;
+    gap: 25px;
+}
+
+.menu a {
+    color: white;
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+.menu a:hover {
+    color: #93c5fd;
+}
+
+/* Banner */
+.banner {
+    background: #dbeafe;
+    text-align: center;
+    padding: 55px 20px;
+}
+
+.banner h1 {
+    font-size: 32px;
+    margin-bottom: 12px;
+}
+
+.banner p {
+    color: #475569;
+}
+
+/* Khu vực sản phẩm */
+.products {
+    max-width: 1200px;
+    margin: 35px auto;
+    padding: 0 20px;
+}
+
+.products h2 {
+    margin-bottom: 25px;
+}
+
+.product-list {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 22px;
+}
+
+/* Thẻ sản phẩm */
+.product {
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 3px 12px #0000000d;
+    transition: transform 0.2s;
+}
+
+.product:hover {
+    transform: translateY(-5px);
+}
+
+.product img {
+    display: block;
+    width: 100%;
+    height: 190px;
+    object-fit: cover;
+}
+
+.product-info {
+    padding: 16px;
+}
+
+.product-info h3 {
+    font-size: 17px;
+    margin-bottom: 10px;
+}
+
+.price {
+    color: #2563eb;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+.product-info button {
+    width: 100%;
+    border: none;
+    border-radius: 6px;
+    padding: 11px;
+    background: #2563eb;
+    color: white;
+    cursor: pointer;
+}
+
+.product-info button:hover {
+    background: #1d4ed8;
+}
+
+/* Footer */
+footer {
+    text-align: center;
+    padding: 25px;
+    background: #172554;
+    color: white;
+    margin-top: 50px;
+}
+
+/* Responsive: tablet */
+@media (max-width: 900px) {
+    .product-list {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+/* Responsive: điện thoại */
+@media (max-width: 500px) {
+    .taskbar {
+        padding: 15px;
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .menu {
+        gap: 15px;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .banner h1 {
+        font-size: 25px;
+    }
+
+    .product-list {
+        gap: 12px;
+    }
+
+    .product img {
+        height: 140px;
+    }
+
+    .product-info {
+        padding: 10px;
+    }
+}

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Shop</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+
+<!-- Taskbar -->
+<header class="taskbar">
+    <div class="logo">MY SHOP</div>
+
+    <nav class="menu">
+        <a href="#">Trang chủ</a>
+        <a href="#products">Sản phẩm</a>
+        <a href="#contact">Liên hệ</a>
+    </nav>
+</header>
+
+<!-- Banner -->
+<section class="banner">
+    <h1>Chào mừng đến với My Shop</h1>
+    <p>Khám phá những sản phẩm tuyệt vời dành cho bạn.</p>
+</section>
+
+<!-- Danh sách sản phẩm -->
+
+<main class="products" id="products">
+    <h2>Sản phẩm nổi bật</h2>
+
+    <div class="product-list">
+        {% for product in products %}
+        <article class="product">
+
+            <img
+                    src="{{ url_for('static', filename=product.image) }}"
+                    alt="{{ product.name }}"
+            >
+
+            <div class="product-info">
+                <h3>{{ product.name }}</h3>
+
+                <p class="price">
+                    {{ "{:,.0f}".format(product.price) }}đ
+                </p>
+
+                <p>{{ product.description }}</p>
+
+                <button type="button">Thêm vào giỏ</button>
+            </div>
+
+        </article>
+        {% endfor %}
+    </div>
+</main>
+
+
+<!-- Footer -->
+<footer id="contact">
+    <p>&copy; 2026 My Shop. All rights reserved.</p>
+</footer>
+
+</body>
+</html>

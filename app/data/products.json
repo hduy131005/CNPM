@@ -1,0 +1,31 @@
+
+[
+    {
+        "id": 1,
+        "name": "Tai nghe không dây",
+        "price": 590000,
+        "image": "images/headphones.jpg",
+        "description": "Tai nghe Bluetooth chất lượng cao"
+    },
+    {
+        "id": 2,
+        "name": "Đồng hồ thông minh",
+        "price": 1290000,
+        "image": "images/watch.jpg",
+        "description": "Đồng hồ theo dõi sức khỏe"
+    },
+    {
+        "id": 3,
+        "name": "Bàn phím cơ",
+        "price": 850000,
+        "image": "images/keyboard.jpg",
+        "description": "Bàn phím cơ dành cho gaming"
+    },
+    {
+        "id": 4,
+        "name": "Chuột không dây",
+        "price": 350000,
+        "image": "images/mouse.jpg",
+        "description": "Chuột không dây tiện lợi"
+    }
+]
