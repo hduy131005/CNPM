@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/order.css') }}">
+    <title>Restaurant</title>
+</head>
+<body>
+<div class="main">
+    <div class="filter-container">
+        {% for c in category %}
+        <a href="{{ url_for('get_order', category=c.id) }}">
+            <div class="filter-items {{ 'active' if c.id == select_category else '' }}">
+                <p>{{ c.name }}</p>
+            </div>
+        </a>
+        {% endfor %}
+    </div>
+</div>
+</body>
+</html>

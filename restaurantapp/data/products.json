@@ -1,0 +1,23 @@
+[
+    {
+        "id": 1,
+        "name": "Phở bò",
+        "price": 55000,
+        "cat": "Món nước",
+        "emoji": "🍜"
+    },
+    {
+        "id": 2,
+        "name": "Bún chả",
+        "price": 50000,
+        "cat": "Món nước",
+        "emoji": "🍲"
+    },
+    {
+        "id": 3,
+        "name": "Cơm tấm sườn",
+        "price": 48000,
+        "cat": "Cơm",
+        "emoji": "🍛"
+    }
+]
