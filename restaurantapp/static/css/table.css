@@ -1,0 +1,152 @@
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: #f5f6f8;
+    padding: 30px;
+}
+
+.container {
+    width: 100%;
+}
+
+/* Header */
+.header {
+    height: 65px;
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    padding: 0 25px;
+    margin-bottom: 25px;
+}
+
+.header h2 {
+    font-size: 20px;
+    font-weight: 600;
+}
+
+/* Khu vực bàn */
+.table-container {
+    min-height: 470px;
+    background: white;
+    border: 1px solid #ccc;
+    border-radius: 12px;
+    padding: 15px;
+}
+
+/* Bộ lọc tầng */
+.floor-filter {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 15px;
+}
+
+.floor-filter button {
+    border: 1px solid #bbb;
+    background: white;
+    border-radius: 20px;
+    padding: 6px 16px;
+    cursor: pointer;
+    font-size: 12px;
+}
+
+.floor-filter button.active {
+    background: #333;
+    color: white;
+    border-color: #333;
+}
+
+/* Danh sách bàn */
+.table-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, 82px);
+    gap: 25px 40px;
+}
+
+/* Thẻ bàn */
+.table-card {
+    width: 82px;
+    height: 82px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.table-card:hover {
+    transform: translateY(-3px);
+}
+
+/* Tên bàn */
+.table-name {
+    font-size: 18px;
+    font-weight: 500;
+}
+
+/* Trạng thái */
+.table-status {
+    font-size: 10px;
+    margin-top: 5px;
+}
+
+/* Các trạng thái */
+.available {
+    background: #eaf8ef;
+    border-color: #8acba0;
+}
+
+.occupied {
+    background: #fff0ed;
+    border-color: #e9a095;
+}
+
+.cooking {
+    background: #fff8e6;
+    border-color: #e5c36c;
+}
+
+/* Chú thích */
+.table-legend {
+    display: flex;
+    gap: 25px;
+    margin-top: 35px;
+    font-size: 12px;
+    color: #555;
+}
+
+.table-legend span {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+}
+
+.dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+}
+
+.available-dot {
+    background: #55ae75;
+}
+
+.occupied-dot {
+    background: #df796a;
+}
+
+.cooking-dot {
+    background: #d9ae40;
+}
