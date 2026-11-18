@@ -3,6 +3,7 @@ from sqlalchemy.orm import relationship
 from restaurantapp import db, app
 from enum import  Enum as MyEnum
 from datetime import datetime
+from flask_login import UserMixin
 
 class BaseModel(db.Model):
     __abstract__ = True
@@ -24,7 +25,7 @@ class Status(MyEnum):
     COOKING = 2
     DONE = 3
 
-class User(BaseModel):
+class User(BaseModel, UserMixin):
     name = Column(String(50), nullable=False)
     username = Column(String(50), nullable=False, unique=True)
     password = Column(String(50), nullable=False)

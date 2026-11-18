@@ -37,7 +37,7 @@
                 <img class="social-media" src="{{ url_for('static', filename='images/zalo.svg') }}" alt="">
             </a>
             <button class="book-container" type="button">
-                <span class="book">Book a table</span>
+                <span class="book">{{current_user.name}}</span>
             </button>
         </nav>
     </header>
