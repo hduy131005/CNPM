@@ -1,22 +1,64 @@
-<!DOCTYPE html>
-<html lang="vi">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/order.css') }}">
-    <title>Restaurant</title>
-</head>
-<body>
-<div class="main">
-    <div class="filter-container">
-        {% for c in category %}
-        <a href="{{ url_for('get_order', category=c.id) }}">
-            <div class="filter-items {{ 'active' if c.id == select_category else '' }}">
-                <p>{{ c.name }}</p>
+{% extends 'layout/base.html' %}
+
+{% block title %}Xác nhận đơn hàng{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet"
+      href="{{ url_for('static', filename='css/order.css') }}">
+{% endblock %}
+
+{% block content %}
+
+<main class="checkout-page">
+
+    <section class="checkout-container">
+
+        <div class="checkout-items" id="checkoutItems">
+            <!-- Danh sách món được render bằng JavaScript -->
+        </div>
+
+        <div class="checkout-bottom">
+            <div class="total-row">
+                <span>Tổng cộng</span>
+                <strong id="totalPrice">0đ</strong>
             </div>
-        </a>
-        {% endfor %}
+
+            <div class="checkout-actions">
+                <button type="button" class="back-btn" id="backBtn">
+                    Quay lại
+                </button>
+
+                <button type="button" class="pay-btn" id="payBtn">
+                    Thanh toán
+                </button>
+            </div>
+        </div>
+
+    </section>
+
+</main>
+
+<!-- Hộp thoại xác nhận thanh toán -->
+<div class="modal-overlay" id="confirmModal" hidden>
+    <div class="confirm-modal">
+
+        <p id="confirmMessage">
+            Xác nhận thanh toán?
+        </p>
+
+        <div class="modal-actions">
+            <button type="button" id="cancelPayBtn">
+                Không
+            </button>
+
+            <button type="button" id="confirmPayBtn">
+                Thanh toán
+            </button>
+        </div>
+
     </div>
 </div>
-</body>
-</html>
+
+<script src="{{ url_for('static', filename='js/order.js') }}"></script>
+
+{% endblock %}

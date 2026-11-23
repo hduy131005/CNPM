@@ -9,15 +9,38 @@ from flask_login import login_user, logout_user, login_required
 def index():
     return render_template("index.html")
 
-@app.get("/order")
-def get_order():
-    category = Category.query.all()
-    select_category = request.args.get("category", type=int, default=1)
-    return render_template("order.html", category = category, select_category = select_category)
+@app.route("/menu")
+def menu():
+    return render_template("menu.html")
 
-@app.get("/table")
-def get_table():
-    return render_template("table.html")
+@app.route("/order")
+def pay():
+    return render_template("order.html")
+
+@app.route("/invoice")
+def invoice():
+    return render_template("invoice.html")
+
+@app.route("/chef")
+def chef():
+    return render_template("order_management.html")
+
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    error = None
+
+    if request.method == 'POST':
+        username = request.form.get('username', '').strip()
+        password = request.form.get('password', '')
+
+        if not username or not password:
+            error = "Nhập đủ username và password."
+
+        else:
+
+            error = "Username hoặc password không chính xác."
+
+    return render_template('login.html', error=error)
 
 @app.route("/login", methods=['GET', 'POST'])
 def login_my_user():

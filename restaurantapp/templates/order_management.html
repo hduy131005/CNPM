@@ -1,0 +1,264 @@
+
+{% extends 'layout/base.html' %}
+
+{% block title %}Quản lý đơn gọi món{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet"
+      href="{{ url_for('static', filename='css/order_management.css') }}">
+{% endblock %}
+
+{% block content %}
+
+<main class="orders-page">
+
+
+
+    <!-- ORDER TABS -->
+    <section class="orders-section">
+
+        <div class="order-tabs">
+
+            <button type="button"
+                    class="order-tab active"
+                    data-tab="new">
+
+                <span>Đơn mới</span>
+                <span class="tab-count" id="newTabCount">3</span>
+
+            </button>
+
+            <button type="button"
+                    class="order-tab"
+                    data-tab="completed">
+
+                <span>Đơn đã hoàn tất</span>
+                <span class="tab-count" id="completedTabCount">1</span>
+
+            </button>
+
+        </div>
+
+        <!-- TABLE HEADER -->
+        <div class="order-table-header">
+
+            <div>Số bàn</div>
+            <div>Món ăn</div>
+            <div>Số lượng</div>
+            <div>Ghi chú</div>
+
+        </div>
+
+        <!-- NEW ORDERS -->
+        <div class="order-list" id="newOrders">
+
+            <!-- ORDER 1 -->
+            <article class="order-card" data-order-id="1">
+
+                <div class="order-table">
+                    <h3>A04</h3>
+                    <span>14:21</span>
+                </div>
+
+                <div class="order-foods">
+
+                    <div class="food-row">
+                        <span>Salad cá hồi</span>
+                        <span class="mobile-qty">1</span>
+                    </div>
+
+                    <div class="food-row">
+                        <span>Nước cam ép</span>
+                        <span class="mobile-qty">2</span>
+                    </div>
+
+                    <div class="food-row">
+                        <span>Bò bít tết</span>
+                        <span class="mobile-qty">1</span>
+                    </div>
+
+                </div>
+
+                <div class="order-quantities">
+                    <span>1</span>
+                    <span>2</span>
+                    <span>1</span>
+                </div>
+
+                <div class="order-notes">
+                    <span>Chín vừa</span>
+                    <span>Ít đá</span>
+                    <span>Không ghi chú</span>
+                </div>
+
+                <div class="order-actions">
+
+                    <button type="button"
+                            class="btn-print">
+                        In đơn
+                    </button>
+
+                    <button type="button"
+                            class="btn-complete">
+                        Hoàn thành đơn
+                    </button>
+
+                </div>
+
+            </article>
+
+            <!-- ORDER 2 -->
+            <article class="order-card" data-order-id="2">
+
+                <div class="order-table">
+                    <h3>A02</h3>
+                    <span>14:25</span>
+                </div>
+
+                <div class="order-foods">
+
+                    <div class="food-row">
+                        <span>Gỏi cuốn tôm thịt</span>
+                        <span class="mobile-qty">2</span>
+                    </div>
+
+                    <div class="food-row">
+                        <span>Sinh tố bơ</span>
+                        <span class="mobile-qty">1</span>
+                    </div>
+
+                </div>
+
+                <div class="order-quantities">
+                    <span>2</span>
+                    <span>1</span>
+                </div>
+
+                <div class="order-notes">
+                    <span>Không hành</span>
+                    <span>Ít đường</span>
+                </div>
+
+                <div class="order-actions">
+
+                    <button type="button"
+                            class="btn-print">
+                        In đơn
+                    </button>
+
+                    <button type="button"
+                            class="btn-complete">
+                        Hoàn thành đơn
+                    </button>
+
+                </div>
+
+            </article>
+
+            <!-- ORDER 3 -->
+            <article class="order-card" data-order-id="3">
+
+                <div class="order-table">
+                    <h3>B01</h3>
+                    <span>14:30</span>
+                </div>
+
+                <div class="order-foods">
+
+                    <div class="food-row">
+                        <span>Cơm tấm sườn bì chả</span>
+                        <span class="mobile-qty">1</span>
+                    </div>
+
+                    <div class="food-row">
+                        <span>Trà đào cam sả</span>
+                        <span class="mobile-qty">2</span>
+                    </div>
+
+                </div>
+
+                <div class="order-quantities">
+                    <span>1</span>
+                    <span>2</span>
+                </div>
+
+                <div class="order-notes">
+                    <span>Không mỡ</span>
+                    <span>Ít đường</span>
+                </div>
+
+                <div class="order-actions">
+
+                    <button type="button"
+                            class="btn-print">
+                        In đơn
+                    </button>
+
+                    <button type="button"
+                            class="btn-complete">
+                        Hoàn thành đơn
+                    </button>
+
+                </div>
+
+            </article>
+
+        </div>
+
+        <!-- COMPLETED ORDERS -->
+        <div class="order-list hidden" id="completedOrders">
+
+            <article class="order-card completed-card"
+                     data-order-id="4">
+
+                <div class="order-table">
+                    <h3>A04</h3>
+                    <span>13:45</span>
+                </div>
+
+                <div class="order-foods">
+
+                    <div class="food-row">
+                        <span>Phở bò tái</span>
+                        <span class="mobile-qty">1</span>
+                    </div>
+
+                    <div class="food-row">
+                        <span>Cà phê sữa đá</span>
+                        <span class="mobile-qty">2</span>
+                    </div>
+
+                </div>
+
+                <div class="order-quantities">
+                    <span>1</span>
+                    <span>2</span>
+                </div>
+
+                <div class="order-notes">
+                    <span>Không ghi chú</span>
+                    <span>Ít đá</span>
+                </div>
+
+                <div class="order-actions">
+                    <span class="completed-label">
+                        ✓ Đã hoàn tất
+                    </span>
+                </div>
+
+            </article>
+
+        </div>
+
+        <!-- EMPTY STATE -->
+        <div class="order-empty hidden" id="emptyOrders">
+            <div class="empty-icon">♧</div>
+            <h3>Chưa có đơn hàng</h3>
+            <p>Các đơn hàng sẽ xuất hiện tại đây.</p>
+        </div>
+
+    </section>
+
+</main>
+<script src="{{ url_for('static', filename='js/order_management.js') }}"></script>
+{% endblock %}

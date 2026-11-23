@@ -1,0 +1,242 @@
+{% extends 'layout/base.html' %}
+
+{% block title %}Menu{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet"
+      href="{{ url_for('static', filename='css/menu.css') }}">
+<link rel="stylesheet"
+      href="{{ url_for('static', filename='css/order.css') }}">
+{% endblock %}
+
+{% block content %}
+
+<main class="page">
+
+    <!-- =====================================
+         DANH MỤC MÓN ĂN
+    ====================================== -->
+    <nav class="categories"
+         id="categories"
+         aria-label="Danh mục">
+    </nav>
+
+
+    <!-- =====================================
+         TÌM KIẾM MÓN ĂN
+    ====================================== -->
+    <input
+            class="search"
+            id="search"
+            type="search"
+            placeholder="Tìm món..."
+            aria-label="Tìm món"
+    >
+
+
+    <!-- =====================================
+         PHÂN TRANG
+    ====================================== -->
+    <div class="pager">
+
+        <button
+                type="button"
+                class="arrow"
+                id="prevBtn"
+                aria-label="Trang trước">
+
+            <svg viewBox="0 0 24 24"
+                 fill="none"
+                 stroke="currentColor"
+                 stroke-width="2"
+                 stroke-linecap="round"
+                 stroke-linejoin="round">
+
+                <path d="M15 5l-7 7 7 7"/>
+
+            </svg>
+
+        </button>
+
+
+        <button
+                type="button"
+                class="arrow"
+                id="nextBtn"
+                aria-label="Trang sau">
+
+            <svg viewBox="0 0 24 24"
+                 fill="none"
+                 stroke="currentColor"
+                 stroke-width="2"
+                 stroke-linecap="round"
+                 stroke-linejoin="round">
+
+                <path d="M9 5l7 7-7 7"/>
+
+            </svg>
+
+        </button>
+
+    </div>
+
+
+    <!-- =====================================
+         DANH SÁCH MÓN ĂN
+    ====================================== -->
+    <section
+            class="menu"
+            id="menu"
+            aria-live="polite">
+    </section>
+
+
+    <!-- =====================================
+         THANH ĐƠN HÀNG
+    ====================================== -->
+    <footer class="order-bar">
+
+        <div
+                class="summary"
+                id="summary">
+        </div>
+
+        <button
+                type="button"
+                class="order-btn"
+                id="orderBtn">
+
+            Đặt đơn
+
+        </button>
+
+    </footer>
+
+
+    <!-- =====================================
+         GIAO DIỆN CHI TIẾT MÓN ĂN
+    ====================================== -->
+    <section
+            class="detail-view"
+            id="detailView"
+            hidden
+            aria-label="Chi tiết món ăn">
+
+        <!-- NÚT QUAY LẠI -->
+        <button
+                type="button"
+                class="back-btn"
+                id="backBtn"
+                aria-label="Quay lại menu"
+                title="Quay lại menu">
+
+            <svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="1.8"
+                    stroke-linecap="round"
+                    stroke-linejoin="round">
+
+                <path d="M19 12H5"/>
+                <path d="M12 19L5 12L12 5"/>
+
+            </svg>
+        </button>
+
+
+        <!-- KHUNG CHI TIẾT -->
+        <div class="detail-container">
+
+            <!-- HÌNH ẢNH MÓN ĂN -->
+            <div class="detail-image">
+
+                <img
+                        id="detailImage"
+                        src=""
+                        alt="Hình ảnh món ăn"
+                >
+
+            </div>
+
+
+            <!-- THÔNG TIN MÓN ĂN -->
+            <div class="detail-content">
+
+                <!-- TÊN VÀ GIÁ -->
+                <div class="detail-info">
+
+                    <h1 id="detailName"></h1>
+
+                    <p
+                            class="detail-price"
+                            id="detailPrice">
+                    </p>
+
+                </div>
+
+
+                <!-- ĐIỀU CHỈNH SỐ LƯỢNG -->
+                <div class="quantity-control">
+
+                    <button
+                            type="button"
+                            class="quantity-btn"
+                            id="decreaseBtn"
+                            aria-label="Giảm số lượng">
+
+                        −
+
+                    </button>
+
+
+                    <span id="quantityValue">1</span>
+
+
+                    <button
+                            type="button"
+                            class="quantity-btn"
+                            id="increaseBtn"
+                            aria-label="Tăng số lượng">
+
+                        +
+
+                    </button>
+
+                </div>
+
+
+                <!-- GHI CHÚ MÓN ĂN -->
+                <textarea
+                        id="dishNote"
+                        class="dish-note"
+                        placeholder="Ghi chú món ăn"
+                        aria-label="Ghi chú món ăn">
+                </textarea>
+
+
+                <!-- NÚT ĐẶT MÓN -->
+                <button
+                        type="button"
+                        class="detail-order-btn"
+                        id="detailOrderBtn">
+
+                    Đặt món
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </section>
+
+</main>
+
+
+<!-- =====================================
+     JAVASCRIPT MENU
+====================================== -->
+<script src="{{ url_for('static', filename='js/menu.js') }}"></script>
+
+{% endblock %}

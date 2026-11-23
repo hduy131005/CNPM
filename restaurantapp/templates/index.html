@@ -1,46 +1,448 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <meta name="viewport" content="width=device-width, initial-scale=1"/>
-    <meta charset="utf-8"/>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/global.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-</head>
-<body>
-<div class="main">
-    <header class="navbar">
-        <nav class="left" aria-label="Primary navigation">
-            <a class="menu" href="#menu">
-                <span class="text-wrapper">menu</span>
-            </a>
-            <a class="explore" href="#explore">
-                <span class="text-wrapper">explore</span>
-            </a>
-            <a class="locations" href="#locations">
-                <span class="text-wrapper">locations</span>
-            </a>
-        </nav>
-        <div class="logo-container">
-            <h1 class="div">Restaurant</h1>
+{% extends 'layout/base.html' %}
+
+{% block extra_css %}
+<link rel="stylesheet"
+      href="{{ url_for('static', filename='css/table_management.css') }}">
+{% endblock %}
+
+{% block content %}
+<main class="table-management">
+
+    <!-- PAGE HEADER -->
+    <section class="page-header">
+        <div>
+            <span class="page-subtitle">RESTAURANT MANAGEMENT</span>
+            <h1>Table Management</h1>
+            <p>Manage your restaurant tables and track their current status.</p>
         </div>
-        <nav class="right" aria-label="Social media and booking">
-            <a href="#" aria-label="Instagram">
-                <img class="social-media" src="{{ url_for('static', filename='images/ins.svg') }}" alt="">
-            </a>
-            <a href="#" aria-label="Facebook">
-                <img class="social-media" src="{{ url_for('static', filename='images/face.svg') }}" alt="">
-            </a>
-            <a href="#" aria-label="TikTok">
-                <img class="social-media" src="{{ url_for('static', filename='images/tiktok.svg') }}" alt="">
-            </a>
-            <a href="#" aria-label="YouTube">
-                <img class="social-media" src="{{ url_for('static', filename='images/zalo.svg') }}" alt="">
-            </a>
-            <button class="book-container" type="button">
-                <span class="book">{{current_user.name}}</span>
+
+        <button class="add-table-btn" type="button" id="addTableBtn">
+            <span>+</span>
+            Add New Table
+        </button>
+    </section>
+
+    <!-- STATISTICS -->
+    <section class="table-statistics">
+
+        <div class="stat-card">
+            <div class="stat-icon total-icon">▦</div>
+            <div class="stat-info">
+                <p>Total Tables</p>
+                <h2 id="totalCount">12</h2>
+            </div>
+        </div>
+
+        <div class="stat-card">
+            <div class="stat-icon available-icon">✓</div>
+            <div class="stat-info">
+                <p>Available</p>
+                <h2 id="availableCount">5</h2>
+            </div>
+        </div>
+
+        <div class="stat-card">
+            <div class="stat-icon occupied-icon">♙</div>
+            <div class="stat-info">
+                <p>Occupied</p>
+                <h2 id="occupiedCount">5</h2>
+            </div>
+        </div>
+
+        <div class="stat-card">
+            <div class="stat-icon reserved-icon">▣</div>
+            <div class="stat-info">
+                <p>Reserved</p>
+                <h2 id="reservedCount">2</h2>
+            </div>
+        </div>
+
+    </section>
+
+    <!-- TABLE CONTENT -->
+    <section class="table-content">
+
+        <div class="table-toolbar">
+            <div class="toolbar-left">
+                <h2>Restaurant Tables</h2>
+                <p>View and manage all tables in your restaurant.</p>
+            </div>
+
+            <div class="toolbar-right">
+                <div class="filter-search">
+                    <span>⌕</span>
+                    <input type="text"
+                           id="tableSearch"
+                           placeholder="Search table...">
+                </div>
+
+                <select id="floorFilter" class="floor-filter">
+                    <option value="all">All Floors</option>
+                    <option value="1">Floor 1</option>
+                    <option value="2">Floor 2</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- STATUS FILTER -->
+        <div class="status-filter">
+            <button class="filter-btn active" data-filter="all">
+                All Tables <span id="allFilterCount">12</span>
             </button>
-        </nav>
-    </header>
-</div>
-</body>
-</html>
+
+            <button class="filter-btn" data-filter="available">
+                Available <span>5</span>
+            </button>
+
+            <button class="filter-btn" data-filter="occupied">
+                Occupied <span>5</span>
+            </button>
+
+            <button class="filter-btn" data-filter="reserved">
+                Reserved <span>2</span>
+            </button>
+        </div>
+
+        <!-- TABLE GRID -->
+        <div class="table-grid" id="tableGrid">
+
+            <!-- FLOOR 1 -->
+            <article class="table-card"
+                     data-status="available"
+                     data-floor="1"
+                     data-name="Table 01">
+
+                <div class="table-card-top">
+                    <span class="table-number">TABLE 01</span>
+                    <span class="status-badge available">Available</span>
+                </div>
+
+                <div class="table-illustration available-color">
+                    <div class="table-circle">01</div>
+                </div>
+
+                <div class="table-card-info">
+                    <div>
+                        <h3>Table 01</h3>
+                        <p>Floor 1</p>
+                    </div>
+                </div>
+
+                <div class="table-card-footer">
+                    <span class="table-note">Ready for guests</span>
+                    <button class="table-action" type="button">Details ↗</button>
+                </div>
+            </article>
+
+            <article class="table-card"
+                     data-status="occupied"
+                     data-floor="1"
+                     data-name="Table 02">
+
+                <div class="table-card-top">
+                    <span class="table-number">TABLE 02</span>
+                    <span class="status-badge occupied">Occupied</span>
+                </div>
+
+                <div class="table-illustration occupied-color">
+                    <div class="table-circle">02</div>
+                </div>
+
+                <div class="table-card-info">
+                    <div>
+                        <h3>Table 02</h3>
+                        <p>Floor 1</p>
+                    </div>
+                </div>
+
+                <div class="table-card-footer">
+                    <span class="table-note">Serving guests</span>
+                    <button class="table-action" type="button">Details ↗</button>
+                </div>
+            </article>
+
+            <article class="table-card"
+                     data-status="reserved"
+                     data-floor="1"
+                     data-name="Table 03">
+
+                <div class="table-card-top">
+                    <span class="table-number">TABLE 03</span>
+                    <span class="status-badge reserved">Reserved</span>
+                </div>
+
+                <div class="table-illustration reserved-color">
+                    <div class="table-circle">03</div>
+                </div>
+
+                <div class="table-card-info">
+                    <div>
+                        <h3>Table 03</h3>
+                        <p>Floor 1</p>
+                    </div>
+                </div>
+
+                <div class="table-card-footer">
+                    <span class="table-note">Reservation at 18:30</span>
+                    <button class="table-action" type="button">Details ↗</button>
+                </div>
+            </article>
+
+            <article class="table-card"
+                     data-status="available"
+                     data-floor="1"
+                     data-name="Table 04">
+
+                <div class="table-card-top">
+                    <span class="table-number">TABLE 04</span>
+                    <span class="status-badge available">Available</span>
+                </div>
+
+                <div class="table-illustration available-color">
+                    <div class="table-circle">04</div>
+                </div>
+
+                <div class="table-card-info">
+                    <div>
+                        <h3>Table 04</h3>
+                        <p>Floor 1</p>
+                    </div>
+                </div>
+
+                <div class="table-card-footer">
+                    <span class="table-note">Ready for guests</span>
+                    <button class="table-action" type="button">Details ↗</button>
+                </div>
+            </article>
+
+            <article class="table-card"
+                     data-status="occupied"
+                     data-floor="1"
+                     data-name="Table 05">
+
+                <div class="table-card-top">
+                    <span class="table-number">TABLE 05</span>
+                    <span class="status-badge occupied">Occupied</span>
+                </div>
+
+                <div class="table-illustration occupied-color">
+                    <div class="table-circle">05</div>
+                </div>
+
+                <div class="table-card-info">
+                    <div>
+                        <h3>Table 05</h3>
+                        <p>Floor 1</p>
+                    </div>
+                </div>
+
+                <div class="table-card-footer">
+                    <span class="table-note">Serving guests</span>
+                    <button class="table-action" type="button">Details ↗</button>
+                </div>
+            </article>
+
+            <article class="table-card"
+                     data-status="available"
+                     data-floor="1"
+                     data-name="Table 06">
+
+                <div class="table-card-top">
+                    <span class="table-number">TABLE 06</span>
+                    <span class="status-badge available">Available</span>
+                </div>
+
+                <div class="table-illustration available-color">
+                    <div class="table-circle">06</div>
+                </div>
+
+                <div class="table-card-info">
+                    <div>
+                        <h3>Table 06</h3>
+                        <p>Floor 1</p>
+                    </div>
+                </div>
+
+                <div class="table-card-footer">
+                    <span class="table-note">Ready for guests</span>
+                    <button class="table-action" type="button">Details ↗</button>
+                </div>
+            </article>
+
+            <!-- FLOOR 2 -->
+            <article class="table-card"
+                     data-status="occupied"
+                     data-floor="2"
+                     data-name="Table 07">
+
+                <div class="table-card-top">
+                    <span class="table-number">TABLE 07</span>
+                    <span class="status-badge occupied">Occupied</span>
+                </div>
+
+                <div class="table-illustration occupied-color">
+                    <div class="table-circle">07</div>
+                </div>
+
+                <div class="table-card-info">
+                    <div>
+                        <h3>Table 07</h3>
+                        <p>Floor 2</p>
+                    </div>
+                </div>
+
+                <div class="table-card-footer">
+                    <span class="table-note">Serving guests</span>
+                    <button class="table-action" type="button">Details ↗</button>
+                </div>
+            </article>
+
+            <article class="table-card"
+                     data-status="available"
+                     data-floor="2"
+                     data-name="Table 08">
+
+                <div class="table-card-top">
+                    <span class="table-number">TABLE 08</span>
+                    <span class="status-badge available">Available</span>
+                </div>
+
+                <div class="table-illustration available-color">
+                    <div class="table-circle">08</div>
+                </div>
+
+                <div class="table-card-info">
+                    <div>
+                        <h3>Table 08</h3>
+                        <p>Floor 2</p>
+                    </div>
+                </div>
+
+                <div class="table-card-footer">
+                    <span class="table-note">Ready for guests</span>
+                    <button class="table-action" type="button">Details ↗</button>
+                </div>
+            </article>
+
+            <article class="table-card"
+                     data-status="reserved"
+                     data-floor="2"
+                     data-name="Table 09">
+
+                <div class="table-card-top">
+                    <span class="table-number">TABLE 09</span>
+                    <span class="status-badge reserved">Reserved</span>
+                </div>
+
+                <div class="table-illustration reserved-color">
+                    <div class="table-circle">09</div>
+                </div>
+
+                <div class="table-card-info">
+                    <div>
+                        <h3>Table 09</h3>
+                        <p>Floor 2</p>
+                    </div>
+                </div>
+
+                <div class="table-card-footer">
+                    <span class="table-note">Reservation at 19:00</span>
+                    <button class="table-action" type="button">Details ↗</button>
+                </div>
+            </article>
+
+            <article class="table-card"
+                     data-status="occupied"
+                     data-floor="2"
+                     data-name="Table 10">
+
+                <div class="table-card-top">
+                    <span class="table-number">TABLE 10</span>
+                    <span class="status-badge occupied">Occupied</span>
+                </div>
+
+                <div class="table-illustration occupied-color">
+                    <div class="table-circle">10</div>
+                </div>
+
+                <div class="table-card-info">
+                    <div>
+                        <h3>Table 10</h3>
+                        <p>Floor 2</p>
+                    </div>
+                </div>
+
+                <div class="table-card-footer">
+                    <span class="table-note">Serving guests</span>
+                    <button class="table-action" type="button">Details ↗</button>
+                </div>
+            </article>
+
+            <article class="table-card"
+                     data-status="available"
+                     data-floor="2"
+                     data-name="Table 11">
+
+                <div class="table-card-top">
+                    <span class="table-number">TABLE 11</span>
+                    <span class="status-badge available">Available</span>
+                </div>
+
+                <div class="table-illustration available-color">
+                    <div class="table-circle">11</div>
+                </div>
+
+                <div class="table-card-info">
+                    <div>
+                        <h3>Table 11</h3>
+                        <p>Floor 2</p>
+                    </div>
+                </div>
+
+                <div class="table-card-footer">
+                    <span class="table-note">Ready for guests</span>
+                    <button class="table-action" type="button">Details ↗</button>
+                </div>
+            </article>
+
+            <article class="table-card"
+                     data-status="occupied"
+                     data-floor="2"
+                     data-name="Table 12">
+
+                <div class="table-card-top">
+                    <span class="table-number">TABLE 12</span>
+                    <span class="status-badge occupied">Occupied</span>
+                </div>
+
+                <div class="table-illustration occupied-color">
+                    <div class="table-circle">12</div>
+                </div>
+
+                <div class="table-card-info">
+                    <div>
+                        <h3>Table 12</h3>
+                        <p>Floor 2</p>
+                    </div>
+                </div>
+
+                <div class="table-card-footer">
+                    <span class="table-note">Serving guests</span>
+                    <button class="table-action" type="button">Details ↗</button>
+                </div>
+            </article>
+
+        </div>
+
+        <div class="empty-state" id="emptyState">
+            <h3>No tables found</h3>
+            <p>Try changing your search or filter.</p>
+        </div>
+
+    </section>
+
+</main>
+
+<script src="{{ url_for('static', filename='js/table_management.js') }}"></script>
+
+{% endblock %}

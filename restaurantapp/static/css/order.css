@@ -1,70 +1,319 @@
-@import url('https://fonts.googleapis.com/css2?family=Intel+One+Mono:wght@300;400;500;600&display=swap');
 
-:root {
-    --bg: #f6f2ea;
-    --card: #fffdf8;
-    --ink: #2b2a26;
-    --muted: #7a7568;
-    --line: #e2dccd;
-    --accent: #c8402a;
-    --accent-dark: #a23220;
-    --green: #2f6b4f;
-}
+/* =====================================
+   CHECKOUT PAGE
+===================================== */
 
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-}
-
-body {
-    font-family: "Be Vietnam Pro", system-ui, sans-serif;
-    background: var(--bg);
-    color: var(--ink);
-    line-height: 1.5;
-    padding: 50px 100px 50px 100px;
-}
-
-.filter-container {
-    display: flex;
+.checkout-page {
     width: 100%;
-    align-items: center;
-    gap: 15px;
-    padding: 9px 21px;
-    position: relative;
-}
-
-.filter-container .filter-items {
-    display: inline-flex;
-    align-items: center;
+    min-height: calc(100vh - var(--navbar-height, 0px));
+    padding: 24px 5%;
+    display: flex;
     justify-content: center;
-    gap: 10px;
-    padding: 4px 16px;
-    position: relative;
-    flex: 0 0 auto;
-    border-radius: 20px;
-    border: 1px solid black;
-    transition: all 0.3s ease-in-out;
-    cursor: pointer;
+    background: var(--bg);
 }
 
-.filter-container .filter-items:hover, .filter-container .filter-items.active  {
-    background: black;
+.checkout-container {
+    width: 100%;
+    max-width: 1000px;
+    min-height: 650px;
+    padding: 30px 35px;
+
+    display: flex;
+    flex-direction: column;
+
+    background: var(--card);
+    border: 1px solid var(--ink);
+    border-radius: 18px;
 }
 
-.filter-container .filter-items:hover p, .filter-container .filter-items.active p {
+/* =====================================
+   DANH SÁCH MÓN
+===================================== */
+
+.checkout-items {
+    flex: 1;
+    min-height: 300px;
+}
+
+.checkout-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 20px;
+
+    padding: 22px 0;
+    border-bottom: 1px solid var(--line);
+}
+
+.item-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.item-heading {
+    display: flex;
+    align-items: baseline;
+    gap: 14px;
+
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 20px;
+    font-weight: 400;
+}
+
+.item-quantity {
+    color: var(--muted);
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 17px;
+    font-weight: 400;
+    white-space: nowrap;
+}
+
+.item-heading strong {
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: 700;
+}
+.item-price {
+    margin-top: 5px;
+    color: var(--menu-accent, #a18135);
+    font-size: 18px;
+}
+
+.item-note {
+    margin-top: 3px;
+    margin-bottom: 0;
+    color: var(--muted);
+    font-size: 15px;
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+}
+
+.remove-btn {
+    width: 42px;
+    height: 42px;
+    flex-shrink: 0;
+
+    border: 1px solid var(--ink);
+    border-radius: 50%;
+    background: transparent;
+
+    color: var(--ink);
+    font-size: 25px;
+    line-height: 1;
+
+    transition: var(--transition);
+}
+
+.remove-btn:hover {
+    background: var(--ink);
     color: white;
 }
 
-.filter-container .filter-items p{
-    position: relative;
-    width: fit-content;
-    font-family: "Be Vietnam Pro", system-ui, sans-serif;
-    font-weight: 300;
-    color: black;
+/* =====================================
+   EMPTY ORDER
+===================================== */
+
+.empty-order {
+    padding: 40px 0;
+    color: var(--muted);
+    text-align: center;
+}
+
+/* =====================================
+   TỔNG TIỀN
+===================================== */
+
+.checkout-bottom {
+    margin-top: auto;
+    padding-top: 25px;
+    border-top: 1px solid var(--ink);
+}
+
+.total-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 24px;
+
+    color: var(--muted);
+    font-size: 17px;
+}
+
+.total-row strong {
+    color: var(--menu-accent, #a18135);
+    font-size: 25px;
+    font-weight: 500;
+}
+
+/* =====================================
+   BUTTONS
+===================================== */
+
+.checkout-actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+}
+
+.back-btn,
+.pay-btn {
+    min-height: 65px;
+    padding: 12px 20px;
+
+    border: 1px solid var(--ink);
+    border-radius: 10px;
+
+    font-size: 17px;
+    transition: var(--transition);
+}
+
+.back-btn {
+    background: transparent;
+    color: var(--ink);
+}
+
+.back-btn:hover {
+    background: var(--bg);
+}
+
+.pay-btn {
+    background: var(--ink);
+    color: white;
+}
+
+.pay-btn:hover {
+    background: #59432e;
+}
+
+.pay-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* =====================================
+   CONFIRM MODAL
+===================================== */
+
+.modal-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 2000;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    padding: 20px;
+    background: rgba(30, 25, 20, 0.32);
+}
+
+.modal-overlay[hidden] {
+    display: none !important;
+}
+
+.confirm-modal {
+    width: 100%;
+    max-width: 450px;
+    padding: 30px;
+
+    background: var(--card);
+    border: 1px solid var(--ink);
+    border-radius: 20px;
+
+    box-shadow: 0 10px 35px rgba(0, 0, 0, 0.12);
+}
+
+.confirm-modal p {
+    margin-bottom: 25px;
+
+    color: var(--ink);
     font-size: 18px;
-    letter-spacing: 0;
-    line-height: normal;
-    white-space: nowrap;
-    transition: all 0.3s ease-in-out;
+    line-height: 1.6;
+}
+
+.modal-actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.modal-actions button {
+    min-height: 65px;
+    padding: 12px;
+
+    border: 1px solid var(--ink);
+    border-radius: 10px;
+
+    font-size: 16px;
+    transition: var(--transition);
+}
+
+#cancelPayBtn {
+    background: white;
+    color: var(--ink);
+}
+
+#cancelPayBtn:hover {
+    background: var(--bg);
+}
+
+#confirmPayBtn {
+    background: var(--ink);
+    color: white;
+}
+
+#confirmPayBtn:hover {
+    background: #59432e;
+}
+
+/* =====================================
+   RESPONSIVE
+===================================== */
+
+@media (max-width: 600px) {
+    .checkout-page {
+        padding: 12px;
+    }
+
+    .checkout-container {
+        min-height: 600px;
+        padding: 20px 16px;
+        border-radius: 12px;
+    }
+
+    .checkout-item {
+        padding: 18px 0;
+    }
+
+    .item-heading {
+        font-size: 17px;
+        gap: 9px;
+    }
+
+    .item-price {
+        font-size: 16px;
+    }
+
+    .checkout-actions {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+
+    .back-btn,
+    .pay-btn {
+        min-height: 55px;
+    }
+
+    .confirm-modal {
+        padding: 24px 18px;
+    }
+
+    .modal-actions {
+        gap: 10px;
+    }
+
+    .modal-actions button {
+        min-height: 55px;
+        font-size: 14px;
+    }
 }

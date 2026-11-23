@@ -1,30 +1,112 @@
 @import url("https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css");
-* {
-  -webkit-font-smoothing: antialiased;
-  box-sizing: border-box;
+
+@import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500;600&family=Libre+Caslon+Text:wght@400;700&display=swap");
+
+/* =====================================
+   GLOBAL VARIABLES
+===================================== */
+
+:root {
+    /* COLORS */
+    --bg: #faf2e4;
+    --card: #ffffff;
+    --ink: #3b2a1c;
+    --muted: #8a8a8a;
+    --line: #e4dccb;
+    --error: #b3261e;
+
+    /* STATUS COLORS */
+    --available: #438458;
+    --available-bg: #e9f4ec;
+
+    --occupied: #bc6655;
+    --occupied-bg: #f9eae6;
+
+    --reserved: #a18a43;
+    --reserved-bg: #f5f0df;
+
+    /* FONTS */
+    --serif: "Libre Caslon Text", Georgia, "Times New Roman", serif;
+    --mono: "IBM Plex Mono", "Courier New", monospace;
+
+    /* COMMON */
+    --radius: 8px;
+    --transition: 0.25s ease;
 }
+
+/* =====================================
+   RESET
+===================================== */
+
+* {
+    -webkit-font-smoothing: antialiased;
+    box-sizing: border-box;
+}
+
 html,
 body {
-  margin: 0px;
-  min-height: 100%;
+    width: 100%;
+    min-height: 100%;
+    margin: 0;
 }
-/* a blue color as a generic focus style */
-button:focus-visible {
-  outline: 2px solid #4a90e2 !important;
-  outline: -webkit-focus-ring-color auto 5px !important;
+
+body {
+    color: var(--ink);
+    background: var(--bg);
+    font-family: var(--mono);
+    font-size: 14px;
+    line-height: 1.5;
 }
+
+button,
+input,
+select,
+textarea {
+    font: inherit;
+}
+
+button {
+    cursor: pointer;
+}
+
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible,
+a:focus-visible {
+    outline: 2px solid var(--ink);
+    outline-offset: 3px;
+}
+
 a {
-  text-decoration: none;
+    color: inherit;
+    text-decoration: none;
 }
-/* @FONTWARNING[{"type": "restricted", "family": "Jacques Francois Shadow-Regular", "weight": "400", "style": "normal", "allowsCrossOrigin": false}] */
 
-@font-face {
-  font-family: "Jacques Francois Shadow-Regular";
-  src: local("Jacques Francois Shadow-Regular");
+img {
+    display: block;
+    max-width: 100%;
 }
-/* @FONTWARNING[{"type": "restricted", "family": "Intel One Mono-Light", "weight": "300", "style": "normal", "allowsCrossOrigin": false}] */
 
-@font-face {
-  font-family: "Intel One Mono-Light";
-  src: local("Intel One Mono-Light");
+h1,
+h2,
+h3,
+h4,
+p {
+    margin-top: 0;
+}
+
+/* =====================================
+   ACCESSIBILITY
+===================================== */
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        scroll-behavior: auto !important;
+        transition-duration: 0.01ms !important;
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+    }
 }

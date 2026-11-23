@@ -1,0 +1,359 @@
+/* =====================================
+   INVOICE PAGE
+===================================== */
+
+:root {
+    --invoice-mono: "IBM Plex Mono",
+                     "Courier New",
+                     ui-monospace,
+                     monospace;
+}
+
+/* GOOGLE FONT */
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;700&subset=vietnamese&display=swap');
+
+
+/* =====================================
+   MAIN LAYOUT
+===================================== */
+
+.invoice-stage {
+    width: 100%;
+    min-height: 100vh;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    gap: 16px;
+    padding: 28px 12px 40px;
+
+    font-family: var(--invoice-mono);
+}
+
+.invoice-scroll {
+    max-width: 100%;
+    overflow-x: auto;
+}
+
+
+/* =====================================
+   INVOICE PAPER
+===================================== */
+
+.invoice-paper {
+    width: 80mm;
+    padding: 7mm 5mm 6mm;
+
+    background: #fff;
+    color: #000;
+
+    font-family: var(--invoice-mono);
+    font-size: 11px;
+    line-height: 1.4;
+
+    box-shadow: 0 4px 22px rgba(0, 0, 0, 0.22);
+}
+
+
+/* =====================================
+   RESTAURANT INFORMATION
+===================================== */
+
+.invoice-shop {
+    text-align: center;
+
+    font-size: 22px;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+}
+
+.invoice-address {
+    text-align: center;
+    font-size: 10px;
+    margin-top: 3px;
+}
+
+.invoice-title {
+    text-align: center;
+
+    font-size: 19px;
+    font-weight: 500;
+    letter-spacing: 4px;
+
+    margin: 14px 0 9px;
+}
+
+
+/* =====================================
+   DIVIDER
+===================================== */
+
+.invoice-paper hr {
+    border: 0;
+    border-top: 1px solid #000;
+    margin: 7px 0;
+}
+
+.invoice-paper .invoice-dash {
+    border-top: 1px dashed #000;
+    margin-top: 12px;
+}
+
+
+/* =====================================
+   INVOICE META
+===================================== */
+
+.invoice-meta {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+
+    gap: 3px 8px;
+
+    font-size: 10px;
+    padding: 2px 0;
+}
+
+.invoice-meta b {
+    font-weight: 700;
+}
+
+
+/* =====================================
+   FOOD TABLE
+===================================== */
+
+.invoice-menu {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: fixed;
+    font-size: 11px;
+}
+
+.invoice-menu th,
+.invoice-menu td {
+    border: 0;
+    padding: 4px 0;
+    vertical-align: top;
+}
+
+/* TÊN MÓN */
+.invoice-menu .col-name {
+    width: 52%;
+    text-align: left;
+    padding-right: 6px;
+    overflow-wrap: anywhere;
+}
+
+/* SỐ LƯỢNG */
+.invoice-menu .col-qty {
+    width: 12%;
+    text-align: right;
+    padding-right: 8px;
+}
+
+/* THÀNH TIỀN */
+.invoice-menu .col-price {
+    width: 36%;
+    text-align: right;
+    white-space: nowrap;
+}
+
+/* =====================================
+   TOTAL
+===================================== */
+
+.invoice-summary {
+    margin-left: auto;
+    width: 72%;
+
+    margin-top: 6px;
+}
+
+.invoice-summary div {
+    display: flex;
+    justify-content: space-between;
+}
+
+.invoice-summary .invoice-total {
+    font-weight: 700;
+    font-size: 13px;
+    margin-top: 2px;
+}
+
+
+/* =====================================
+   THANK YOU
+===================================== */
+
+.invoice-thanks {
+    text-align: center;
+    margin-top: 14px;
+}
+
+.invoice-ornament {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    gap: 8px;
+
+    font-size: 10px;
+    letter-spacing: 2px;
+}
+
+.invoice-ornament::before,
+.invoice-ornament::after {
+    content: "";
+
+    flex: 1;
+    border-top: 1px solid #000;
+}
+
+.thanks-title {
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 1px;
+
+    margin: 8px 0 2px;
+}
+
+.thanks-subtitle {
+    font-size: 10.5px;
+}
+
+
+/* =====================================
+   SUPPORT NOTE
+===================================== */
+
+.invoice-note {
+    margin-top: 12px;
+
+    border: 1px solid #000;
+    padding: 7px 8px;
+
+    text-align: center;
+
+    font-size: 9.5px;
+    line-height: 1.5;
+
+    position: relative;
+}
+
+.invoice-note .note-title {
+    font-weight: 700;
+    letter-spacing: 1px;
+    font-size: 9.5px;
+
+    margin-bottom: 2px;
+}
+
+.invoice-note .note-email {
+    display: inline-block;
+
+    margin-top: 3px;
+
+    font-weight: 700;
+    border-bottom: 1px solid #000;
+}
+
+
+/* =====================================
+   BARCODE
+===================================== */
+
+.invoice-barcode {
+    display: block;
+    margin: 12px auto 0;
+}
+
+.invoice-code {
+    text-align: center;
+
+    font-size: 9px;
+    letter-spacing: 3px;
+
+    margin-top: 2px;
+}
+
+
+/* =====================================
+   BUTTONS
+===================================== */
+
+.invoice-buttons {
+    display: flex;
+    gap: 8px;
+}
+
+.invoice-btn {
+    font-family: var(--invoice-mono);
+    font-size: 12px;
+
+    cursor: pointer;
+
+    border-radius: 999px;
+    border: 1px solid #111;
+
+    background: transparent;
+    color: #111;
+
+    padding: 8px 16px;
+
+    transition: 0.2s ease;
+}
+
+.invoice-btn:hover {
+    background: #eee;
+}
+
+.invoice-btn.primary {
+    background: #111;
+    color: #fff;
+}
+
+.invoice-btn.primary:hover {
+    background: #333;
+}
+
+
+/* =====================================
+   PRINT
+===================================== */
+
+@page {
+    size: 80mm auto;
+    margin: 0;
+}
+
+@media print {
+
+    html,
+    body {
+        background: #fff !important;
+    }
+
+    .invoice-buttons {
+        display: none !important;
+    }
+
+    .invoice-stage {
+        padding: 0;
+        display: block;
+
+        min-height: auto;
+    }
+
+    .invoice-scroll {
+        overflow: visible;
+    }
+
+    .invoice-paper {
+        width: 80mm;
+
+        box-shadow: none;
+        margin: 0;
+    }
+}

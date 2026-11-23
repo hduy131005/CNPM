@@ -1,0 +1,234 @@
+{% extends 'layout/base.html' %}
+
+{% block title %}Hóa đơn{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet"
+      href="{{ url_for('static', filename='css/invoice.css') }}">
+{% endblock %}
+
+{% block content %}
+
+<main class="invoice-stage">
+
+    <div class="invoice-scroll">
+
+        <article class="invoice-paper">
+
+            <!-- TÊN NHÀ HÀNG -->
+            <div class="invoice-shop">Restaurant</div>
+
+            <div class="invoice-address" id="addr"></div>
+
+            <div class="invoice-title">HÓA ĐƠN</div>
+
+            <hr>
+
+            <!-- THÔNG TIN HÓA ĐƠN -->
+            <div class="invoice-meta">
+
+                <div>Số bàn: <b>A01</b></div>
+
+                <div>Nhân viên: <b>Thu Ngân</b></div>
+
+                <div>
+                    Mã hóa đơn:
+                    <b id="code"></b>
+                </div>
+
+                <div>
+                    Ngày:
+                    <span id="date"></span>
+                </div>
+
+                <div>
+                    Giờ vào:
+                    <span id="tin"></span>
+                </div>
+
+                <div>
+                    Giờ ra:
+                    <span id="tout"></span>
+                </div>
+
+            </div>
+
+            <hr>
+
+            <!-- DANH SÁCH MÓN ĂN -->
+            <table class="invoice-menu">
+
+                <thead>
+                    <tr>
+                        <th class="col-name">Tên món</th>
+                        <th class="col-qty">SL</th>
+                        <th class="col-price">Thành tiền</th>
+                    </tr>
+                </thead>
+
+                <tbody id="items">
+                    <!-- Dữ liệu món ăn -->
+                </tbody>
+
+            </table>
+
+            <hr>
+
+            <!-- TỔNG TIỀN -->
+            <div class="invoice-summary">
+
+                <div>
+                    <span>Tổng SL:</span>
+                    <span id="qty"></span>
+                </div>
+
+                <div class="invoice-total">
+                    <span>Tổng tiền:</span>
+                    <span id="total"></span>
+                </div>
+
+            </div>
+
+            <hr class="invoice-dash">
+
+            <!-- LỜI CẢM ƠN -->
+            <div class="invoice-thanks">
+
+                <div class="invoice-ornament">✦</div>
+
+                <div class="thanks-title">
+                    CẢM ƠN QUÝ KHÁCH
+                </div>
+
+                <div class="thanks-subtitle">
+                    Restaurant hẹn gặp lại!
+                </div>
+
+            </div>
+
+            <!-- THÔNG TIN HỖ TRỢ -->
+            <div class="invoice-note">
+
+                <div class="note-title">
+                    KHIẾU NẠI &amp; HỖ TRỢ
+                </div>
+
+                Vui lòng giữ lại hóa đơn và liên hệ qua email
+
+                <br>
+
+                <span class="note-email">
+                    support@restaurant.com
+                </span>
+
+            </div>
+
+            <!-- BARCODE -->
+            <svg class="invoice-barcode"
+                 id="bar"
+                 height="28"
+                 width="150"
+                 aria-hidden="true">
+            </svg>
+
+            <div class="invoice-code" id="code2"></div>
+
+        </article>
+
+    </div>
+
+    <!-- NÚT CHỨC NĂNG -->
+    <div class="invoice-buttons">
+
+        <button type="button"
+                class="invoice-btn primary"
+                id="print">
+            In hóa đơn
+        </button>
+
+        <button type="button"
+                class="invoice-btn"
+                id="again">
+            Tạo mới
+        </button>
+
+    </div>
+
+</main>
+<script>
+(function(){
+  var DISHES = [
+    ["Phở bò tái",55000],["Bún chả Hà Nội",50000],["Cơm tấm sườn bì chả",60000],
+    ["Bánh mì thịt nướng",30000],["Gỏi cuốn tôm thịt",45000],["Bánh xèo",65000],
+    ["Hủ tiếu Nam Vang",55000],["Bún bò Huế",55000],["Cơm gà xối mỡ",58000],
+    ["Cà phê sữa đá",29000],["Trà đào cam sả",39000],["Nước mía",20000],
+    ["Sinh tố bơ",45000],["Chè thái",35000],["Bánh flan caramel",25000]
+  ];
+  var ADDRS = [
+    "12 Nguyễn Huệ, P. Bến Nghé, Q.1, TP.HCM","85 Lê Văn Sỹ, P.14, Q.3, TP.HCM",
+    "210 Nguyễn Trãi, P. Nguyễn Cư Trinh, Q.1, TP.HCM","45 Phan Xích Long, P.2, Q. Phú Nhuận, TP.HCM",
+    "36 Hoàng Diệu, P.12, Q.4, TP.HCM","102 Nguyễn Thị Minh Khai, P.6, Q.3, TP.HCM",
+    "7 Nguyễn Thị Thập, P. Tân Phú, Q.7, TP.HCM","58 Võ Văn Ngân, P. Linh Chiểu, TP. Thủ Đức, TP.HCM",
+    "23 Xô Viết Nghệ Tĩnh, P.21, Q. Bình Thạnh, TP.HCM","139 Cách Mạng Tháng Tám, P.5, Q. Tân Bình, TP.HCM"
+  ];
+  var $ = function(id){return document.getElementById(id)};
+  var rnd = function(n){return Math.floor(Math.random()*n)};
+  var pad = function(n){return String(n).padStart(2,"0")};
+  var fmt = function(n){return n.toLocaleString("vi-VN")+"đ"};
+  var hm = function(d){return pad(d.getHours())+":"+pad(d.getMinutes())};
+
+  function makeCode(){
+    var L="ABCDEFGHJKLMNPQRSTUVWXYZ", D="23456789", s=[];
+    for(var i=0;i<5;i++) s.push(Math.random()<0.5?D[rnd(D.length)]:L[rnd(L.length)]);
+    if(!s.some(function(c){return D.indexOf(c)>-1})) s[rnd(5)] = D[rnd(D.length)];
+    return s.join("");
+  }
+
+  function barcode(code){
+    var svg=$("bar"), x=0, h="";
+    var seq = (code+code+code).split("");
+    seq.forEach(function(ch,i){
+      var v = ch.charCodeAt(0) + i*7;
+      var w = 1 + (v % 3), gap = 1 + ((v>>2) % 2);
+      h += '<rect x="'+x+'" y="0" width="'+w+'" height="28" fill="#000"/>';
+      x += w + gap;
+    });
+    svg.setAttribute("viewBox","0 0 "+x+" 28");
+    svg.setAttribute("width", Math.min(150,x*2));
+    svg.innerHTML = h;
+  }
+
+  function gen(){
+    var pool = DISHES.slice(), picks=[], count = 6 + rnd(3);
+    while(picks.length<count && pool.length) picks.push(pool.splice(rnd(pool.length),1)[0]);
+    var q=0,t=0,html="";
+    picks.forEach(function(p){
+      var qty = Math.random()<0.25 ? 2 : 1, sub = qty*p[1];
+      q+=qty; t+=sub;
+      html += `
+    <tr>
+        <td class="col-name">${p[0]}</td>
+        <td class="col-qty">${qty}</td>
+        <td class="col-price">${fmt(sub)}</td>
+    </tr>
+`;
+    });
+    $("items").innerHTML = html;
+    $("qty").textContent = q;
+    $("total").textContent = fmt(t);
+    $("addr").textContent = ADDRS[rnd(ADDRS.length)];
+    var code = makeCode();
+    $("code").textContent = code; $("code2").textContent = code;
+    barcode(code);
+    var out = new Date(), tin = new Date(out.getTime() - (35+rnd(50))*60000);
+    $("date").textContent = pad(out.getDate())+"/"+pad(out.getMonth()+1)+"/"+out.getFullYear();
+    $("tin").textContent = hm(tin);
+    $("tout").textContent = hm(out);
+  }
+
+  $("print").addEventListener("click", function(){window.print()});
+  $("again").addEventListener("click", gen);
+  gen();
+})();
+</script>
+{% endblock %}
