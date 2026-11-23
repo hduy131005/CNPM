@@ -17,6 +17,6 @@ def auth(username, password):
 def get_user_byId(user_id):
     return User.query.get(user_id)
 
-if __name__== "__main__":
-    with app.app_context():
-        print(add_user(name="ABC", username="abc@gmail.com", password="123"))
+# if __name__== "__main__":
+#     with app.app_context():
+#         print(add_user(name="ABC", username="Abc", password="123"))

@@ -5,7 +5,7 @@ from dao import *
 import admin
 from flask_login import login_user, logout_user, login_required
 
-@app.get("/")
+@app.get("/hone")
 def index():
     return render_template("index.html")
 
@@ -25,28 +25,11 @@ def invoice():
 def chef():
     return render_template("order_management.html")
 
-@app.route('/login', methods=['GET', 'POST'])
-def login():
-    error = None
-
-    if request.method == 'POST':
-        username = request.form.get('username', '').strip()
-        password = request.form.get('password', '')
-
-        if not username or not password:
-            error = "Nhập đủ username và password."
-
-        else:
-
-            error = "Username hoặc password không chính xác."
-
-    return render_template('login.html', error=error)
-
-@app.route("/login", methods=['GET', 'POST'])
+@app.route("/", methods=['GET', 'POST'])
 def login_my_user():
     err_msg = None
     if request.method.__eq__('POST'):
-        username = request.form.get('email')
+        username = request.form.get('username')
         password = request.form.get('password')
 
         user = auth(username=username, password=password)
